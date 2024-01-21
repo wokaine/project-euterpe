@@ -1,0 +1,46 @@
+<!doctype html>
+<title> {% block title %}{% endblock %}Project Euterpe</title>
+<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+<header class="title-box">
+    <h1 class="title">Project Euterpe</h1>
+    <h2 class="subtitle">A lyrics-based music recommendation system.</h2>
+</header>
+<main>
+    <section>
+        <h2 class="subtitle">About</h2>
+        <p class="centre">Welcome to Project Euterpe. This is a dissertation project.</p>
+    </section>
+    <section class="centre">
+        <h2>Please enter a song you would like recommendations for</h2>
+        <form method="PUT" id="form">
+            <section>
+                <label for="song">Song:</label>
+                <input type="text" id="song" name="song" autocomplete="off">
+                <br>
+                <label for="artist">Artist:</label>
+                <input type="text" id="artist" name="artist" autocomplete="off">
+                <br>
+                <label for="url">Or enter the URL from Genius:</label>
+                <input type="url" id="url" name="url" autocomplete="off">
+                <br>
+
+                <p>Select your vector type:</p>
+                <label for="w2v">Word2Vec</label>
+                <input type="radio" id="w2v" name="model_type" value="w2v">
+                <br>
+
+                <label for="glove">GloVe</label>
+                <input type="radio" id="glove" name="model_type" value="glove">
+                <br>
+
+                <label for="lda">LDA</label>
+                <input type="radio" id="lda" name="model_type" value="lda">
+                <br>
+
+                <input class="submit" type="submit" value="Submit">
+            </section>
+        </form>
+    </section>
+</main>
+
+<script src="{{url_for('static', filename='js/submitForm.js')}}"></script>

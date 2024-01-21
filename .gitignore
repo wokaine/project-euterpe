@@ -1,0 +1,15 @@
+music4all
+glove_src_code
+glove_corpus_file.txt
+songs_no_vec_lyrics_set.pk
+songs_no_vec.pk
+glove_vectors.txt
+word2vec.model
+word2vec.wordvectors
+ldamodel
+ldamodel.expElogbeta.npy
+ldamodel.id2word
+ldamodel.state
+songs_vec_lyrics_set.pk
+__pycache__
+instance

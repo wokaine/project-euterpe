@@ -1,0 +1,25 @@
+<!doctype html>
+<title> {% block title %}{% endblock %}Project Euterpe</title>
+<link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+<header class="title-box">
+    <h1 class="title">Project Euterpe</h1>
+    <h2 class="subtitle">A lyrics-based music recommendation system.</h2>
+</header>
+<main>
+    <section>
+        <h2 class="subtitle">About</h2>
+        <p class="centre">Welcome to Project Euterpe. This is a dissertation project.</p>
+    </section>
+    <section class="centre">
+        <h2>Here are your recommendations:</h2>
+        {% for i in range(recommendations_song_names|length)%}
+        <section class="recommendation">
+            <p><b>Song: </b>{{ recommendations_song_names[i] }}</p>
+            <p><b>Artist: </b>{{ recommendations_artists[i]}}</p>
+            <p><b>Genre: </b>{{ recommendations_genre[i] }}</p>
+            <p><b>Similarity: </b>{{ similarities[i] }}</p>
+        </section>
+        <br>
+        {% endfor %}
+    </section>
+</main>
