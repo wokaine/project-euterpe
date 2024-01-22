@@ -83,7 +83,6 @@ class DataHandler():
             if song.vector is None:
                 print(f"Song ID: {song.id}, Name: {song.name}")
                 sys.exit("Vector is NaN, please retry")
-            print(f"Done!")
 
         with open(filename, 'wb') as pkl:
             pickle.dump(all_songs, pkl)
@@ -91,9 +90,9 @@ class DataHandler():
     def prepare_glove(import_filename, export_filename):
         print(f"===Initialising GloVe Export===")
         song_list = DataHandler.import_pickle(import_filename)
-        all_pp_lyrics = [song.pplyrics for song in song_list]
+        all_lyrics = [song.pplyrics for song in song_list] + [Normalizer.tokenize_lyrics(song.lyrics) for song in song_list]
         with open(export_filename, 'w', encoding='utf-8') as glove_file:
-            for pplyrics in all_pp_lyrics:
+            for pplyrics in all_lyrics:
                 lyrics = " ".join(pplyrics)
                 glove_file.write(lyrics+"\n")
         print("Done!")
@@ -114,15 +113,13 @@ class DataHandler():
                 gvector = glove_model.get_vector(token)
                 gvectors.append(gvector)
             except:
-                # Append a vector entirely of zeroes, vector size 50
-                gvectors.append(np.zeros(50))
+                continue
 
             try:
                 wvector = w2v_model.get_vector(token)
                 wvectors.append(wvector)
             except:
-                # Append a vector entirely of zeroes, vector size 50
-                wvectors.append(np.zeros(50))
+                continue
 
         # LDA already creates vector for whole document
         lvector = lda_model.get_vector(pplyrics)

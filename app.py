@@ -1,14 +1,15 @@
-import os
+import os, requests
 from flask import Flask, render_template, request, redirect, jsonify, session, url_for
 from bs4 import BeautifulSoup
 from pre_processor import Normalizer
 from data_handler import DataHandler
 from algorithm_wrappers import *
 from recommender import Recommender
-import requests
+from random import randint
 
 SONG_DATA = DataHandler.import_pickle("songs_vec_lyrics_set.pk")
 TRAINING_DATA = [song.pplyrics for song in SONG_DATA]
+VEC_METHODS = ["w2v", "glove", "lda"]
 
 GLOVE = GloveWrapper("glove_vectors.txt")
 W2V = W2VWrapper()
@@ -24,7 +25,9 @@ def create_app():
 
     @app.route('/')
     def index():
-        return render_template('index.html')
+        word_vector_method = VEC_METHODS[randint(0,2)]
+        session['word_vector_method'] = word_vector_method
+        return render_template('index.html', word_vector_method=word_vector_method)
     
     @app.route('/submit', methods=['GET', 'PUT'])
     def submit():
@@ -34,7 +37,9 @@ def create_app():
             song = data['song']
             artist = data['artist']
             url = data['url']
-            current_model_type = data['radio']
+            current_model_type = session.pop('word_vector_method', None)
+            print(current_model_type)
+            #current_model_type = data['radio']
 
             found_in_dataset = False
             for s in SONG_DATA:

@@ -1,7 +1,7 @@
 const submitForm = async (event) => {
     event.preventDefault();
 
-    const selectedRadio = document.querySelector('input[name=model_type]:checked');
+/*     const selectedRadio = document.querySelector('input[name=model_type]:checked');
 
     if (!selectedRadio){
         alert('Please select a vector type');
@@ -10,7 +10,9 @@ const submitForm = async (event) => {
 
     const data = {
         radio: selectedRadio.value,
-    };
+    }; */
+
+    const data = {};
     const formData = new FormData(event.target);
     formData.forEach((value, key) => {
         data[key] = value;
